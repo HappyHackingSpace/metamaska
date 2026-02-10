@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /// script
-# requires-python = ">=3.10"
-# dependencies = ["pandas", "scikit-learn", "joblib"]
+# requires-python = ">=3.13"
+# dependencies = ["pandas", "scikit-learn>=1.8.0", "joblib"]
 # ///
 """Automated model training for metamaska.
 

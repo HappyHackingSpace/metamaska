@@ -4,7 +4,7 @@ dynamic = ["version"]
 description = "malevolent payload classifier"
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 authors = [
     { name = "Doğan Can Bakır", email = "dogancanbakir@protonmail.com" },
     { name = "Happy Hacking Space", email = "team@happyhacking.space" },
@@ -15,14 +15,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
     "click>=8.0",
-    "scikit-learn>=1.7.0",
+    "scikit-learn>=1.8.0",
     "huggingface-hub>=1.4.1",
 ]
 
@@ -67,7 +64,7 @@ dev = [
 
 [tool.ruff]
 line-length = 120
-target-version = "py310"
+target-version = "py313"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
