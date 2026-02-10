@@ -1,6 +1,5 @@
-import pytest
 
-from metamaska.utils import unquote, remove_new_line, remove_whitespace
+from metamaska.utils import remove_new_line, remove_whitespace, unquote
 
 
 def test_unquote():

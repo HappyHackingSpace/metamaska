@@ -12,7 +12,7 @@ def test_form_with_valid_case(metamaska):
     assert metamaska.form("meta") == "valid"
 
 
-def test_form_with_valid_case(metamaska):
+def test_form_with_valid_case_proba(metamaska):
     cls, proba = metamaska.form("meta", True)
 
     assert cls == "valid"
