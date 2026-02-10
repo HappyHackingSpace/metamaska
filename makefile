@@ -1,24 +1,35 @@
 sources = metamaska
 
-.PHONY: test format lint unittest coverage pre-commit clean
+.PHONY: test format lint unittest coverage pre-commit clean hf-upload collect-data train
+
 test: format lint unittest
 
 format:
-	isort $(sources) tests
-	black $(sources) tests -t py38
+	uv run ruff format $(sources) tests
+	uv run ruff check --fix $(sources) tests
 
 lint:
-	flake8 $(sources) tests
-	mypy $(sources) tests
+	uv run ruff check $(sources) tests
+	uv run mypy $(sources) tests
 
 unittest:
-	pytest
+	uv run pytest
 
 coverage:
-	pytest --cov=$(sources) --cov-branch --cov-report=term-missing tests
+	uv run pytest --cov=$(sources) --cov-branch --cov-report=term-missing tests
 
 pre-commit:
-	pre-commit run --all-files
+	uv run pre-commit run --all-files
+
+hf-upload:
+	hf upload happyhackingspace/metamaska $(sources)/models/ models/ --repo-type model
+	hf upload happyhackingspace/metamaska data/processed/ data/ --repo-type dataset
+
+collect-data:
+	uv run scripts/collect_data.py
+
+train:
+	uv run scripts/train.py
 
 clean:
 	rm -rf .mypy_cache .pytest_cache

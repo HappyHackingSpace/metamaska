@@ -1,7 +1,7 @@
 site_name: metamaska
-site_url: https://dogancanbakir.github.io/metamaska
-repo_url: https://github.com/dogancanbakir/metamaska
-repo_name: dogancanbakir/metamaska
+site_url: https://happyhackingspace.github.io/metamaska
+repo_url: https://github.com/happyhackingspace/metamaska
+repo_name: happyhackingspace/metamaska
 #strict: true
 nav:
   - Home: index.md
@@ -55,7 +55,7 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/dogancanbakir/metamaska
+      link: https://github.com/happyhackingspace/metamaska
       name: Github
     - icon: material/email
-      link: "mailto:dogancanbakir@protonmail.com"
+      link: "mailto:team@happyhacking.space"

@@ -116,5 +116,14 @@ ENV/
 site/
 
 
+# uv
+uv.lock
+
+# auto-generated version file
+metamaska/_version.py
+
+# models (downloaded from HuggingFace)
+*.joblib
+
 #project speficic
 data

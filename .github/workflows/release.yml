@@ -1,80 +1,52 @@
-name: release & publish workflow
+name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ["v*"]
 
-  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   release:
-    name: Create Release
+    name: Release
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        python-versions: [3.10.7]
-
     steps:
-      - name: Get version from tag
-        id: tag_name
-        run: |
-          echo ::set-output name=current_version::${GITHUB_REF#refs/tags/v}
-        shell: bash
-
-      - uses: actions/checkout@v3
-
-      - name: Get Changelog Entry
-        id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2
+      - uses: actions/checkout@v4
         with:
-          validation_depth: 10
-          version: ${{ steps.tag_name.outputs.current_version }}
-          path: ./CHANGELOG.md
-
-      - uses: actions/setup-python@v3
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-versions }}
+          python-version: "3.13"
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
+        run: uv sync --group dev
 
-      - name: build documentation
-        run: |
-          poetry install -E doc
-          poetry run mkdocs build
+      - name: Build documentation
+        run: uv run mkdocs build
 
-      - name: publish documentation
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Publish documentation
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
 
       - name: Build wheels and source tarball
-        run: >-
-          poetry build
+        run: uv build
 
-      - name: show temporary files
-        run: >-
-          ls -l
-
-      - name: create github release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
         with:
-          body: ${{ steps.changelog_reader.outputs.changes }}
+          generate_release_notes: true
           files: dist/*.whl
           draft: false
           prerelease: false
 
-      - name: publish to PyPI
+      - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.PYPI_TOKEN }}
           skip_existing: true

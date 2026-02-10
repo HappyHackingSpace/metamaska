@@ -9,7 +9,7 @@ You can contribute in many ways:
 
 ### Report Bugs
 
-Report bugs at https://github.com/dogancanbakir/metamaska/issues.
+Report bugs at https://github.com/happyhackingspace/metamaska/issues.
 
 If you are reporting a bug, please include:
 
@@ -35,7 +35,7 @@ articles, and such.
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at https://github.com/dogancanbakir/metamaska/issues.
+The best way to send feedback is to file an issue at https://github.com/happyhackingspace/metamaska/issues.
 
 If you are proposing a feature:
 
@@ -54,19 +54,15 @@ Ready to contribute? Here's how to set up `metamaska` for local development.
     ```
     $ git clone git@github.com:your_name_here/metamaska.git
     ```
-3. Download necessary datasets from,
-    *  XSS dataset [Link](https://www.kaggle.com/syedsaqlainhussain/cross-site-scripting-xss-dataset-for-deep-learning)
-    *  HTTP parameters dataset [Link](https://github.com/Morzeux/HttpParamsDataset)
-    *  ECML/PKDD 2007 dataset [Link](http://www.lirmm.fr/pkdd2007-challenge/)
 
-4. Ensure [poetry](https://python-poetry.org/docs/) is installed.
-5. Install dependencies and start your virtualenv:
+3. Ensure [uv](https://docs.astral.sh/uv/) is installed.
+4. Install dependencies:
 
     ```
-    $ poetry install -E test -E doc -E dev
+    $ uv sync --all-groups
     ```
 
-6. Create a branch for local development:
+5. Create a branch for local development:
 
     ```
     $ git checkout -b name-of-your-bugfix-or-feature
@@ -74,14 +70,14 @@ Ready to contribute? Here's how to set up `metamaska` for local development.
 
     Now you can make your changes locally.
 
-7. When you're done making changes, check that your changes pass the
-   tests, including testing other Python versions, with tox:
+6. When you're done making changes, check that your changes pass the
+   tests:
 
     ```
-    $ poetry run tox
+    $ make test
     ```
 
-8. Commit your changes and push your branch to GitHub:
+7. Commit your changes and push your branch to GitHub:
 
     ```
     $ git add .
@@ -89,7 +85,17 @@ Ready to contribute? Here's how to set up `metamaska` for local development.
     $ git push origin name-of-your-bugfix-or-feature
     ```
 
-9. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
+
+## Retraining the Model
+
+To collect fresh training data and retrain the classifier:
+
+```
+$ make collect-data   # downloads datasets → data/processed/dataset.json
+$ make train          # trains pipeline → metamaska/models/payload_clf.joblib
+$ make hf-upload      # uploads model to HuggingFace Hub
+```
 
 ## Pull Request Guidelines
 
@@ -99,14 +105,14 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.md.
-3. The pull request should work for Python 3.8, 3.9 and 3.10. Check
-   https://github.com/dogancanbakir/metamaska/actions
+3. The pull request should work for Python 3.10+. Check
+   https://github.com/happyhackingspace/metamaska/actions
    and make sure that the tests pass for all supported Python versions.
 
 ## Tips
 
 ```
-$ poetry run pytest tests/test_metamaska.py
+$ uv run pytest tests/test_metamaska.py
 ```
 
 To run a subset of tests.
@@ -116,12 +122,7 @@ To run a subset of tests.
 
 A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in CHANGELOG.md).
-Then run:
 
-```
-$ poetry run bump2version patch # possible: major / minor / patch
-$ git push
-$ git push --tags
-```
-
-GitHub Actions will then deploy to PyPI if tests pass.
+Pushing to `main` triggers the CI workflow which automatically determines
+the next version, creates a tag, and pushes it. The `release.yml` workflow
+then builds and publishes to PyPI.

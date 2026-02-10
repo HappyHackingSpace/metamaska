@@ -3,13 +3,13 @@ meta.mask can detect different types of malicious payloads like SQL injection, X
 
 [![pypi](https://img.shields.io/pypi/v/metamaska.svg)](https://pypi.org/project/metamaska/)
 [![python](https://img.shields.io/pypi/pyversions/metamaska.svg)](https://pypi.org/project/metamaska/)
-[![Build Status](https://github.com/dogancanbakir/metamaska/actions/workflows/dev.yml/badge.svg)](https://github.com/dogancanbakir/metamaska/actions/workflows/dev.yml)
-[![codecov](https://codecov.io/gh/dogancanbakir/metamaska/branch/main/graphs/badge.svg)](https://codecov.io/github/dogancanbakir/metamaska)
+[![Build Status](https://github.com/happyhackingspace/metamaska/actions/workflows/ci.yml/badge.svg)](https://github.com/happyhackingspace/metamaska/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/happyhackingspace/metamaska/branch/main/graphs/badge.svg)](https://codecov.io/github/happyhackingspace/metamaska)
 
 
 
-* Documentation: <https://dogancanbakir.github.io/metamaska>
-* GitHub: <https://github.com/dogancanbakir/metamaska>
+* Documentation: <https://happyhackingspace.github.io/metamaska>
+* GitHub: <https://github.com/happyhackingspace/metamaska>
 * PyPI: <https://pypi.org/project/metamaska/>
 * Free software: MIT
 
