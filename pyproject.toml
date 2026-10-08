@@ -19,7 +19,8 @@ classifiers = [
 ]
 dependencies = [
     "click>=8.0",
-    "scikit-learn>=1.8.0",
+    # The HF model is a pickled SVC that fails to load on 1.9; raise the cap after retraining.
+    "scikit-learn>=1.8.0,<1.9",
     "huggingface-hub>=1.4.1",
 ]
 
